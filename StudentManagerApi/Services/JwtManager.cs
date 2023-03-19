@@ -1,21 +1,19 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Cryptography;
 using System.Security.Claims;
+using StudentManagerApi.Models;
 
 namespace StudentManagerApi.Services
 {
     public class JwtManager : IJwtManager
     {
-        private readonly IConfiguration _config;
         private readonly IRsaKeyFileReader _reader;
 
-        public JwtManager(IConfiguration configuration, IRsaKeyFileReader reader)
+        public JwtManager(IRsaKeyFileReader reader)
         {
-            _config = configuration;
             _reader = reader;
         }
-        public async Task<string> CreateJwt(string username)
+        public async Task<string> CreateJwt(User user)
         {
             RsaSecurityKey rsa = await _reader.ReadRsaPrivateKeyFile();
 
@@ -23,7 +21,9 @@ namespace StudentManagerApi.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, username),
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Role, user.Role)
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(10),
                 SigningCredentials = new SigningCredentials(rsa, SecurityAlgorithms.RsaSha256),

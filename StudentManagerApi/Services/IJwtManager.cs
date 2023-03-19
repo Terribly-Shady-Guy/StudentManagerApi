@@ -1,7 +1,9 @@
-﻿namespace StudentManagerApi.Services
+﻿using StudentManagerApi.Models;
+
+namespace StudentManagerApi.Services
 {
     public interface IJwtManager
     {
-        Task<string> CreateJwt(string username);
+        Task<string> CreateJwt(User user);
     }
 }

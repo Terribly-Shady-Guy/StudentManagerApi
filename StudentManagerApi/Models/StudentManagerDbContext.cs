@@ -90,6 +90,10 @@ public partial class StudentManagerDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(100)
                 .IsUnicode(false);
+            entity.Property(e => e.Role)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.Username)
                 .IsRequired()
                 .HasMaxLength(50)

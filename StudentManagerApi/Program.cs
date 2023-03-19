@@ -43,6 +43,7 @@ builder.Services.AddDbContext<StudentManagerApi.Models.StudentManagerDbContext>(
 //register user creates services for dependency injection
 builder.Services.AddTransient<IJwtManager, JwtManager>();
 builder.Services.AddTransient<IRsaKeyFileReader, RsaKeyFileReader>();
+builder.Services.AddTransient<UserService>();
 
 var app = builder.Build();
 
