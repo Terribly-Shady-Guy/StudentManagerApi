@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Validations;
 using StudentManagerApi.Dtos;
 using StudentManagerApi.Models;
 
 namespace StudentManagerApi.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly StudentManagerDbContext _context;
 

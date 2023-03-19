@@ -11,9 +11,9 @@ namespace StudentManagerApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly IJwtManager _jwtManager;
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
 
-        public UserController(IJwtManager manager, UserService userService)
+        public UserController(IJwtManager manager, IUserService userService)
         {
             _jwtManager = manager;
             _userService = userService;

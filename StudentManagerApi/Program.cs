@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Cryptography;
 using StudentManagerApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,7 +41,7 @@ builder.Services.AddDbContext<StudentManagerApi.Models.StudentManagerDbContext>(
 //register user creates services for dependency injection
 builder.Services.AddTransient<IJwtManager, JwtManager>();
 builder.Services.AddTransient<IRsaKeyFileReader, RsaKeyFileReader>();
-builder.Services.AddTransient<UserService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 var app = builder.Build();
 
