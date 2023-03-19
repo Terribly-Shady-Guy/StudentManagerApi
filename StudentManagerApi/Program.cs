@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen();
 
 // configure Jwt authentication
 var fileReader = new RsaKeyFileReader(builder.Configuration);
-RsaSecurityKey key = await fileReader.ReadRsaPublicKeyFile();
+RsaSecurityKey publicKey = await fileReader.ReadRsaPublicKeyFile();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -25,7 +25,7 @@ builder.Services.AddAuthentication(options =>
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = key,
+        IssuerSigningKey = publicKey,
         ValidAudience = "student-manager",
         ValidIssuer = "student-manager",
         ValidateAudience = true,
