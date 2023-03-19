@@ -15,7 +15,7 @@ namespace StudentManagerApi.Services
         }
         public async Task<string> CreateJwt(User user)
         {
-            RsaSecurityKey rsa = await _reader.ReadRsaPrivateKeyFile();
+            RsaSecurityKey rsaPrivateKey = await _reader.ReadRsaPrivateKeyFile();
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -26,7 +26,7 @@ namespace StudentManagerApi.Services
                     new Claim(ClaimTypes.Role, user.Role)
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(10),
-                SigningCredentials = new SigningCredentials(rsa, SecurityAlgorithms.RsaSha256),
+                SigningCredentials = new SigningCredentials(rsaPrivateKey, SecurityAlgorithms.RsaSha256),
             };
             var handler = new JwtSecurityTokenHandler();
             SecurityToken token = handler.CreateToken(tokenDescriptor);
