@@ -17,19 +17,24 @@ namespace StudentManagerApi.Services
         {
             RsaSecurityKey rsaPrivateKey = await _reader.ReadRsaPrivateKeyFile();
 
+            var claims = new Claim[]
+            {
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.Role)
+            };
+
+            var credentials = new SigningCredentials(rsaPrivateKey, SecurityAlgorithms.RsaSha256);
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.Username),
-                    new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.Role, user.Role)
-                }),
+                Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(10),
-                SigningCredentials = new SigningCredentials(rsaPrivateKey, SecurityAlgorithms.RsaSha256),
+                SigningCredentials = credentials,
                 Audience = "student-manager-client",
                 Issuer = "student-manager-api"
             };
+
             var handler = new JwtSecurityTokenHandler();
             SecurityToken token = handler.CreateToken(tokenDescriptor);
 

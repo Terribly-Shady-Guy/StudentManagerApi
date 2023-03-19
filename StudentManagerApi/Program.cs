@@ -44,7 +44,7 @@ builder.Services.AddDbContext<StudentManagerApi.Models.StudentManagerDbContext>(
     options.UseSqlServer(builder.Configuration.GetConnectionString("StudentManager"));
 });
 
-//register user creates services for dependency injection
+//register user created services for dependency injection
 builder.Services.AddTransient<IJwtManager, JwtManager>();
 builder.Services.AddTransient<IRsaKeyFileReader, RsaKeyFileReader>();
 builder.Services.AddTransient<IUserService, UserService>();
