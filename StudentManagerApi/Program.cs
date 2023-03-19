@@ -16,20 +16,25 @@ builder.Services.AddSwaggerGen();
 var fileReader = new RsaKeyFileReader(builder.Configuration);
 RsaSecurityKey rsaPublicKey = await fileReader.ReadRsaPublicKeyFile();
 
+builder.Services.AddSingleton(rsaPublicKey);
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer("Asymmetric", options =>
+}).AddJwtBearer(options =>
 {
+    RsaSecurityKey rsaPublicKey = builder.Services.BuildServiceProvider().GetRequiredService<RsaSecurityKey>();
+
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = rsaPublicKey,
-        ValidAudience = "student-manager",
-        ValidIssuer = "student-manager",
+        ValidAudience = "student-manager-client",
+        ValidIssuer = "student-manager-api",
         ValidateAudience = true,
         ValidateIssuer = true,
+        ValidateLifetime = true,
     };
 });
 

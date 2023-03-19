@@ -27,6 +27,8 @@ namespace StudentManagerApi.Services
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(10),
                 SigningCredentials = new SigningCredentials(rsaPrivateKey, SecurityAlgorithms.RsaSha256),
+                Audience = "student-manager-client",
+                Issuer = "student-manager-api"
             };
             var handler = new JwtSecurityTokenHandler();
             SecurityToken token = handler.CreateToken(tokenDescriptor);

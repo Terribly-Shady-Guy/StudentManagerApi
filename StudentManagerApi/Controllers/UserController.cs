@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace StudentManagerApi.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -20,7 +21,6 @@ namespace StudentManagerApi.Controllers
             _userService = userService;
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> SignUp(User newUser)
         {
@@ -36,6 +36,7 @@ namespace StudentManagerApi.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult<string>> Login(LoginDto login)
         {
@@ -48,6 +49,21 @@ namespace StudentManagerApi.Controllers
 
             string token = await _jwtManager.CreateJwt(user);
             return Ok(token);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> ModifyUserRole(RoleDto user)
+        {
+            bool isSuccessfull = await _userService.UpdateUserRole(user);
+
+            if (isSuccessfull)
+            {
+                return Ok("User role changed");
+            }
+            else
+            {
+                return NotFound("Could not find user");
+            }
         }
     }
 }

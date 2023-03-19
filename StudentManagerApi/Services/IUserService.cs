@@ -7,5 +7,6 @@ namespace StudentManagerApi.Services
     {
         Task<bool> AddNewUser(User user);
         Task<User?> GetUser(LoginDto login);
+        Task<bool> UpdateUserRole(RoleDto user);
     }
 }

@@ -98,7 +98,7 @@ public partial class StudentManagerDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4C75D314F1");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4C00445930");
 
             entity.Property(e => e.Email)
                 .IsRequired()
@@ -111,8 +111,7 @@ public partial class StudentManagerDbContext : DbContext
             entity.Property(e => e.LastName)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("lastName");
+                .IsUnicode(false);
             entity.Property(e => e.Password)
                 .IsRequired()
                 .HasMaxLength(100)
