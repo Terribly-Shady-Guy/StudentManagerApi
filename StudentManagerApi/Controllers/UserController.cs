@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StudentManagerApi.Services;
 using StudentManagerApi.Models;
 using StudentManagerApi.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StudentManagerApi.Controllers
 {
@@ -19,6 +20,7 @@ namespace StudentManagerApi.Controllers
             _userService = userService;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> SignUp(User newUser)
         {
