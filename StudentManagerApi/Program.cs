@@ -29,7 +29,6 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateIssuer = true,
     };
-
 });
 
 //adds db context for dependency injection
