@@ -19,5 +19,7 @@ public partial class Registration
 
     public string BookFormat { get; set; }
 
+    public virtual Course CourseNumberNavigation { get; set; }
+
     public virtual Student Student { get; set; }
 }

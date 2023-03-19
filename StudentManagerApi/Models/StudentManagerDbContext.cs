@@ -13,6 +13,8 @@ public partial class StudentManagerDbContext : DbContext
     {
     }
 
+    public virtual DbSet<Course> Courses { get; set; }
+
     public virtual DbSet<Registration> Registrations { get; set; }
 
     public virtual DbSet<Student> Students { get; set; }
@@ -21,6 +23,26 @@ public partial class StudentManagerDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Course>(entity =>
+        {
+            entity.HasKey(e => e.CourseNumber).HasName("PK__Courses__A98290ECCD7802D2");
+
+            entity.Property(e => e.CourseNumber)
+                .HasMaxLength(8)
+                .IsUnicode(false)
+                .IsFixedLength();
+            entity.Property(e => e.CourseName)
+                .IsRequired()
+                .HasMaxLength(10)
+                .IsFixedLength();
+            entity.Property(e => e.EndDate).HasColumnType("date");
+            entity.Property(e => e.Instructor)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.StartDate).HasColumnType("date");
+        });
+
         modelBuilder.Entity<Registration>(entity =>
         {
             entity.HasKey(e => e.RegisterId).HasName("PK__Registra__B91FAB7989773EFF");
@@ -40,6 +62,11 @@ public partial class StudentManagerDbContext : DbContext
                 .HasMaxLength(8)
                 .IsUnicode(false)
                 .IsFixedLength();
+
+            entity.HasOne(d => d.CourseNumberNavigation).WithMany(p => p.Registrations)
+                .HasForeignKey(d => d.CourseNumber)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Registration_ToCourses");
 
             entity.HasOne(d => d.Student).WithMany(p => p.Registrations)
                 .HasForeignKey(d => d.StudentId)

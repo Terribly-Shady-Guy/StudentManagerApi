@@ -24,6 +24,7 @@ builder.Services.AddAuthentication(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
+        ValidateIssuerSigningKey = true,
         IssuerSigningKey = key,
         ValidAudience = "student-manager",
         ValidIssuer = "student-manager",
