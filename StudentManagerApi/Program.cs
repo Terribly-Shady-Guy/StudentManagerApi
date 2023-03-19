@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
+using StudentManagerApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,13 +15,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // configure Jwt authentication
+var fileReader = new RsaKeyFileReader(builder.Configuration);
+RsaSecurityKey key = await fileReader.ReadRsaPublicKeyFile();
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer("Asymmetric", options =>
 {
-    RsaSecurityKey key = GetRsaKey(builder.Configuration["Jwt:public"]);
     options.TokenValidationParameters = new TokenValidationParameters
     {
         IssuerSigningKey = key,
@@ -36,6 +39,10 @@ builder.Services.AddDbContext<StudentManagerApi.Models.StudentManagerDbContext>(
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("StudentManager"));
 });
+
+//register user creates services for dependency injection
+builder.Services.AddTransient<IJwtManager, JwtManager>();
+builder.Services.AddTransient<IRsaKeyFileReader, RsaKeyFileReader>();
 
 var app = builder.Build();
 
@@ -55,11 +62,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-
-static RsaSecurityKey GetRsaKey(string publicKey)
-{
-    RSA rsaKey = RSA.Create();
-    rsaKey.ImportRSAPublicKey(Convert.FromBase64String(publicKey), out int _);
-    return new RsaSecurityKey(rsaKey);
-}
