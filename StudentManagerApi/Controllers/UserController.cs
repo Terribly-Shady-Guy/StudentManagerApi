@@ -24,7 +24,7 @@ namespace StudentManagerApi.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(User newUser)
         {
-            bool isSuccessfull = await _userService.AddNewUser(newUser);
+            bool isSuccessfull = await _userService.AddNewUserAsync(newUser);
 
             if (isSuccessfull)
             {
@@ -40,21 +40,21 @@ namespace StudentManagerApi.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> Login(LoginDto login)
         {
-            User? user = await _userService.GetUser(login);
+            User? user = await _userService.GetUserAsync(login);
 
             if (user is null)
             {
                 return Unauthorized();
             }
 
-            string token = await _jwtManager.CreateJwt(user);
+            string token = await _jwtManager.CreateJwtAsync(user);
             return Ok(token);
         }
 
         [HttpPut]
         public async Task<IActionResult> ModifyUserRole(RoleDto user)
         {
-            bool isSuccessfull = await _userService.UpdateUserRole(user);
+            bool isSuccessfull = await _userService.UpdateUserRoleAsync(user);
 
             if (isSuccessfull)
             {

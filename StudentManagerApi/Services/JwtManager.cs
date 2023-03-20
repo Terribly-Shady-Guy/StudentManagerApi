@@ -13,9 +13,9 @@ namespace StudentManagerApi.Services
         {
             _reader = reader;
         }
-        public async Task<string> CreateJwt(User user)
+        public async Task<string> CreateJwtAsync(User user)
         {
-            RsaSecurityKey rsaPrivateKey = await _reader.ReadRsaPrivateKeyFile();
+            RsaSecurityKey rsaPrivateKey = await _reader.ReadRsaPrivateKeyFileAsync();
 
             var claims = new Claim[]
             {

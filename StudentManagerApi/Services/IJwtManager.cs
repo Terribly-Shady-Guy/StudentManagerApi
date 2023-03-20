@@ -4,6 +4,6 @@ namespace StudentManagerApi.Services
 {
     public interface IJwtManager
     {
-        Task<string> CreateJwt(User user);
+        Task<string> CreateJwtAsync(User user);
     }
 }

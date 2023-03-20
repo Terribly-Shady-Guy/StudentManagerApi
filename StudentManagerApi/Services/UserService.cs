@@ -14,7 +14,7 @@ namespace StudentManagerApi.Services
             _context = context;
         }
 
-        public async Task<bool> AddNewUser(User user)
+        public async Task<bool> AddNewUserAsync(User user)
         {
             var hasher = new PasswordHasher<User>();
             user.Password = hasher.HashPassword(user, user.Password);
@@ -31,7 +31,7 @@ namespace StudentManagerApi.Services
             }
         }
 
-        public async Task<User?> GetUser(LoginDto login)
+        public async Task<User?> GetUserAsync(LoginDto login)
         {
             List<User> users = await _context.Users.Where(u => u.Username == login.Username).ToListAsync();
 
@@ -53,7 +53,7 @@ namespace StudentManagerApi.Services
             return null;
         }
 
-        public async Task<bool> UpdateUserRole(RoleDto user)
+        public async Task<bool> UpdateUserRoleAsync(RoleDto user)
         {
             int rowsChanged = await _context.Users.Where(u => u.Username == user.Username)
                 .ExecuteUpdateAsync(x => x.SetProperty(u => u.Role, user.Role));

@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen();
 
 // configure Jwt authentication
 var fileReader = new RsaKeyFileReader(builder.Configuration);
-RsaSecurityKey rsaPublicKey = await fileReader.ReadRsaPublicKeyFile();
+RsaSecurityKey rsaPublicKey = await fileReader.ReadRsaPublicKeyFileAsync();
 
 builder.Services.AddSingleton(rsaPublicKey);
 

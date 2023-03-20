@@ -5,8 +5,8 @@ namespace StudentManagerApi.Services
 {
     public interface IUserService
     {
-        Task<bool> AddNewUser(User user);
-        Task<User?> GetUser(LoginDto login);
-        Task<bool> UpdateUserRole(RoleDto user);
+        Task<bool> AddNewUserAsync(User user);
+        Task<User?> GetUserAsync(LoginDto login);
+        Task<bool> UpdateUserRoleAsync(RoleDto user);
     }
 }

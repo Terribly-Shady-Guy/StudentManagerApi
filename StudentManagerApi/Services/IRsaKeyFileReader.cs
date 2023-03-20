@@ -4,7 +4,7 @@ namespace StudentManagerApi.Services
 {
     public interface IRsaKeyFileReader
     {
-        Task<RsaSecurityKey> ReadRsaPrivateKeyFile();
-        Task<RsaSecurityKey> ReadRsaPublicKeyFile();
+        Task<RsaSecurityKey> ReadRsaPrivateKeyFileAsync();
+        Task<RsaSecurityKey> ReadRsaPublicKeyFileAsync();
     }
 }
