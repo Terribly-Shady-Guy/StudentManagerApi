@@ -55,16 +55,10 @@ namespace StudentManagerApi.Services
 
         public async Task<bool> UpdateUserRole(RoleDto user)
         {
-            try
-            {
-                await _context.Users.Where(u => u.Username == user.Username)
-                    .ExecuteUpdateAsync(x => x.SetProperty(u => u.Role, user.Role));
-                return true;
-            }
-            catch (DbUpdateException)
-            {
-                return false;
-            }
+            int rowsChanged = await _context.Users.Where(u => u.Username == user.Username)
+                .ExecuteUpdateAsync(x => x.SetProperty(u => u.Role, user.Role));
+
+            return rowsChanged > 0;
         }
     }
 }

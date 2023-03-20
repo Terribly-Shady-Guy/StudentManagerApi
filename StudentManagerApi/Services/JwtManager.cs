@@ -20,8 +20,7 @@ namespace StudentManagerApi.Services
             var claims = new Claim[]
             {
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role)
+                new Claim(ClaimTypes.Role, user.Role),
             };
 
             var credentials = new SigningCredentials(rsaPrivateKey, SecurityAlgorithms.RsaSha256);
