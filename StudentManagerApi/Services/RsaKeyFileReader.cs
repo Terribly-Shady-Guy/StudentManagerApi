@@ -30,7 +30,7 @@ namespace StudentManagerApi.Services
             return new RsaSecurityKey(rsaKey);
         }
 
-        private async Task<string> ReadFileAsync(string fileName)
+        private static async Task<string> ReadFileAsync(string fileName)
         {
             string path = Path.Combine(Environment.CurrentDirectory, "..", fileName);
             return await File.ReadAllTextAsync(path);
