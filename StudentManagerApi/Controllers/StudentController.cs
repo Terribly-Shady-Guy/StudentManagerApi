@@ -12,7 +12,7 @@ namespace StudentManagerApi.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Student>>> GetAllStudents()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("This endpoint is a work in progress");
         }
 
         [Authorize]
