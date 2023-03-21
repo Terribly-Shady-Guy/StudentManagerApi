@@ -9,11 +9,11 @@ namespace StudentManagerApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController : ControllerBase
+    public class StudentRegistrationController : ControllerBase
     {
         private readonly IStudentService _studentService;
 
-        public StudentController(IStudentService studentService)
+        public StudentRegistrationController(IStudentService studentService)
         {
             _studentService = studentService;
         }
