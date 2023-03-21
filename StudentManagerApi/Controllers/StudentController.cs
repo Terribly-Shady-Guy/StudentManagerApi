@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StudentManagerApi.Dtos;
 using StudentManagerApi.Models;
 using StudentManagerApi.Services;
 
@@ -25,7 +26,7 @@ namespace StudentManagerApi.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddNewStudent(Student student)
+        public async Task<IActionResult> AddNewStudent(StudentDto student)
         {
             bool isSuccessfull = await _studentService.AddNewStudentAsync(student);
 
