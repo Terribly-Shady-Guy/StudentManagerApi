@@ -7,6 +7,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:3000");
+        policy.WithHeaders("content-type");
+        policy.WithMethods(new string[]
+        {
+            "GET",
+            "POST",
+            "PUT"
+        });
+    });
+});
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -51,6 +66,8 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IStudentService, StudentService>();
 
 var app = builder.Build();
+
+app.UseCors();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
