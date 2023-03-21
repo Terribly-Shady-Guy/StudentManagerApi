@@ -48,6 +48,7 @@ builder.Services.AddDbContext<StudentManagerApi.Models.StudentManagerDbContext>(
 builder.Services.AddTransient<IJwtManager, JwtManager>();
 builder.Services.AddTransient<IRsaKeyFileReader, RsaKeyFileReader>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IStudentService, StudentService>();
 
 var app = builder.Build();
 
