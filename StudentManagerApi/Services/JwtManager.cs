@@ -1,8 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using StudentManagerApi.Models;
-using System.Security.Principal;
 
 namespace StudentManagerApi.Services
 {

@@ -1,5 +1,4 @@
-﻿using StudentManagerApi.Models;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 
 namespace StudentManagerApi.Services
 {
