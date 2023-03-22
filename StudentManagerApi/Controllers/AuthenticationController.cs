@@ -31,7 +31,13 @@ namespace StudentManagerApi.Controllers
                 return Unauthorized();
             }
 
-            string accessToken = await _jwtManager.CreateJwtAsync(user);
+            var claims = new Claim[]
+            {
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Role, user.Role),
+            };
+
+            string accessToken = await _jwtManager.CreateJwtAsync(claims);
 
             SetRefreshToken();
 

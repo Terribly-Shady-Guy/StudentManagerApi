@@ -17,33 +17,6 @@ namespace StudentManagerApi.Services
             _configuration = configuration;
         }
 
-        public async Task<string> CreateJwtAsync(User user)
-        {
-            RsaSecurityKey rsaPrivateKey = await _reader.ReadRsaPrivateKeyFileAsync();
-
-            var claims = new Claim[]
-            {
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, user.Role),
-            };
-
-            var credentials = new SigningCredentials(rsaPrivateKey, SecurityAlgorithms.RsaSha256);
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(10),
-                SigningCredentials = credentials,
-                Audience = _configuration["Jwt:Audience"],
-                Issuer = _configuration["Jwt:Issuer"]
-            };
-
-            var handler = new JwtSecurityTokenHandler();
-            SecurityToken token = handler.CreateToken(tokenDescriptor);
-
-            return handler.WriteToken(token);
-        }
-
         public async Task<string> CreateJwtAsync(Claim[] claims)
         {
             RsaSecurityKey rsaPrivateKey = await _reader.ReadRsaPrivateKeyFileAsync();
@@ -53,10 +26,10 @@ namespace StudentManagerApi.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(10),
+                Expires = DateTime.UtcNow.AddMinutes(5),
                 SigningCredentials = credentials,
-                Audience = "student-manager-client",
-                Issuer = "student-manager-api"
+                Audience = _configuration["Jwt:Audience"],
+                Issuer = _configuration["Jwt:Issuer"]
             };
 
             var handler = new JwtSecurityTokenHandler();
