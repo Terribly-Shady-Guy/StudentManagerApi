@@ -7,6 +7,6 @@ namespace StudentManagerApi.Services
     {
         Task<string> CreateJwtAsync(User user);
         Task<string> CreateJwtAsync(Claim[] claims);
-        Task<Claim[]> ExtractClaims(string expiredToken);
+        Task<Claim[]> ExtractClaimsAsync(string expiredToken);
     }
 }

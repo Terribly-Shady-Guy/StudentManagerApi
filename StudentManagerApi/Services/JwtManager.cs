@@ -65,7 +65,7 @@ namespace StudentManagerApi.Services
             return handler.WriteToken(token);
         }
 
-        public async Task<Claim[]> ExtractClaims(string expiredToken)
+        public async Task<Claim[]> ExtractClaimsAsync(string expiredToken)
         {
             RsaSecurityKey rsaPrivateKey = await _reader.ReadRsaPrivateKeyFileAsync();
 

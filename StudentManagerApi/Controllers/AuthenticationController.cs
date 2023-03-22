@@ -48,7 +48,7 @@ namespace StudentManagerApi.Controllers
                 return Unauthorized();
             }
 
-            Claim[] claims = await _jwtManager.ExtractClaims(accessToken);
+            Claim[] claims = await _jwtManager.ExtractClaimsAsync(accessToken);
             if (claims.Length == 0)
             {
                 return BadRequest("This is not a valid token");
