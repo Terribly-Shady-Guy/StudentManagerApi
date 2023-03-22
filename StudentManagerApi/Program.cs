@@ -18,7 +18,8 @@ builder.Services.AddCors(options =>
         {
             "GET",
             "POST",
-            "PUT"
+            "PUT",
+            "DELETE",
         });
     });
 });
