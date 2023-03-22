@@ -41,12 +41,13 @@ builder.Services.AddAuthentication(options =>
 {
     RsaSecurityKey rsaPublicKey = builder.Services.BuildServiceProvider().GetRequiredService<RsaSecurityKey>();
 
+    options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = rsaPublicKey,
-        ValidAudience = "student-manager-client",
-        ValidIssuer = "student-manager-api",
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidateAudience = true,
         ValidateIssuer = true,
         ValidateLifetime = true,

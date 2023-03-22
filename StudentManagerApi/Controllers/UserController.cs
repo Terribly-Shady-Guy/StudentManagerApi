@@ -8,11 +8,10 @@ using Microsoft.AspNetCore.Authorization;
 namespace StudentManagerApi.Controllers
 {
     [Authorize(Roles = "Admin")]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IJwtManager _jwtManager;
         private readonly IUserService _userService;
 
         public UserController(IJwtManager manager, IUserService userService)
@@ -34,21 +33,6 @@ namespace StudentManagerApi.Controllers
             {
                 return BadRequest("This user already exists");
             }
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<ActionResult<string>> Login(LoginDto login)
-        {
-            User? user = await _userService.GetUserAsync(login);
-
-            if (user is null)
-            {
-                return Unauthorized();
-            }
-
-            string token = await _jwtManager.CreateJwtAsync(user);
-            return Ok(token);
         }
 
         [HttpPut]
