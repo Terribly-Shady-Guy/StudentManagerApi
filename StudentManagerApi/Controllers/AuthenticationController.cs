@@ -85,7 +85,7 @@ namespace StudentManagerApi.Controllers
                 Secure = true,
             };
 
-            Response.Cookies.Append("refresh-token", refreshToken.ToString(), options);
+            Response.Cookies.Append("refresh-token", refreshToken, options);
         }
 
         private string GenerateRefreshToken()
