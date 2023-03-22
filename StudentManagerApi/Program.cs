@@ -13,6 +13,7 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins("http://localhost:3000");
         policy.WithHeaders("content-type");
+        policy.AllowCredentials();
         policy.WithMethods(new string[]
         {
             "GET",
