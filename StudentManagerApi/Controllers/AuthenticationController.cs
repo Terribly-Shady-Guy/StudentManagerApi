@@ -31,7 +31,7 @@ namespace StudentManagerApi.Controllers
                 return Unauthorized();
             }
 
-            var claims = new Claim[]
+            var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Role, user.Role),
@@ -54,8 +54,8 @@ namespace StudentManagerApi.Controllers
                 return Unauthorized();
             }
 
-            Claim[] claims = await _jwtManager.ExtractClaimsAsync(accessToken);
-            if (claims.Length == 0)
+            List<Claim> claims = await _jwtManager.ExtractClaimsAsync(accessToken);
+            if (claims.Count == 0)
             {
                 return BadRequest("This is not a valid token");
             }

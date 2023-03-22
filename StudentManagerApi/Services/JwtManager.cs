@@ -15,7 +15,7 @@ namespace StudentManagerApi.Services
             _configuration = configuration;
         }
 
-        public async Task<string> CreateJwtAsync(Claim[] claims)
+        public async Task<string> CreateJwtAsync(List<Claim> claims)
         {
             RsaSecurityKey rsaPrivateKey = await _reader.ReadRsaPrivateKeyFileAsync();
 
@@ -36,9 +36,9 @@ namespace StudentManagerApi.Services
             return handler.WriteToken(token);
         }
 
-        public async Task<Claim[]> ExtractClaimsAsync(string expiredToken)
+        public async Task<List<Claim>> ExtractClaimsAsync(string expiredToken)
         {
-            RsaSecurityKey rsaPrivateKey = await _reader.ReadRsaPrivateKeyFileAsync();
+            RsaSecurityKey rsaPrivateKey = await _reader.ReadRsaPublicKeyFileAsync();
 
             var parameters = new TokenValidationParameters
             {
@@ -57,14 +57,14 @@ namespace StudentManagerApi.Services
 
                 if (jwtToken == null || !jwtToken.Header.Alg.Equals(SecurityAlgorithms.RsaSha256, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    return new Claim[1];
+                    return new List<Claim>();
                 }
 
-                return principal.Claims.ToArray();
+                return principal.Claims.ToList();
             }
             catch (Exception)
             {
-                return new Claim[1];
+                return new List<Claim>();
             }
         }
     }

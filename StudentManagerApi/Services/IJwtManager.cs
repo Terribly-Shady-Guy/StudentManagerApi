@@ -4,7 +4,7 @@ namespace StudentManagerApi.Services
 {
     public interface IJwtManager
     {
-        Task<string> CreateJwtAsync(Claim[] claims);
-        Task<Claim[]> ExtractClaimsAsync(string expiredToken);
+        Task<string> CreateJwtAsync(List<Claim> claims);
+        Task<List<Claim>> ExtractClaimsAsync(string expiredToken);
     }
 }
