@@ -64,6 +64,7 @@ builder.Services.AddTransient<IJwtManager, JwtManager>();
 builder.Services.AddTransient<IRsaKeyFileReader, RsaKeyFileReader>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IStudentService, StudentService>();
+builder.Services.AddTransient<ICourseService, CourseService>();
 
 var app = builder.Build();
 
