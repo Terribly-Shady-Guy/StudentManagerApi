@@ -18,9 +18,37 @@ namespace StudentManagerApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Student>>> GetAllStudents()
+        public async Task<ActionResult<List<StudentDto>>> GetAllStudents()
         {
-            return Ok(await _studentService.GetAllStudentsAsync());
+            List<Student> students = await _studentService.GetAllStudentsAsync();
+
+            var studentDtos = new List<StudentDto>();
+            foreach (var student in students)
+            {
+                var studentDto = new StudentDto
+                {
+                    FirstName = student.FirstName,
+                    LastName = student.LastName,
+                    Major = student.Major,
+                    ExpectedGradDate = student.ExpectedGradDate,
+                    Gpa = student.Gpa,
+                };
+
+                foreach (var registration in student.Registrations)
+                {
+                    studentDto.Registration.Add(new RegistrationDto
+                    {
+                        AttendanceType = registration.AttendanceType,
+                        CourseNumber = registration.CourseNumber,
+                        Credits = registration.Credits,
+                        BookFormat = registration.BookFormat,
+                    });
+                }
+
+                studentDtos.Add(studentDto);
+            }
+
+            return Ok(studentDtos);
         }
 
         [Authorize]
