@@ -14,7 +14,7 @@ namespace StudentManagerApi.Services
 
         public async Task<RsaSecurityKey> ReadRsaPublicKeyFileAsync()
         {
-            string publicKey = await ReadFileAsync(_configuration["Rsa:public"]);
+            string publicKey = await ReadFileAsync(_configuration["Rsa:Public"]);
 
             RSA rsaKey = RSA.Create();
             rsaKey.ImportRSAPublicKey(Convert.FromBase64String(publicKey), out int _);
@@ -23,7 +23,7 @@ namespace StudentManagerApi.Services
 
         public async Task<RsaSecurityKey> ReadRsaPrivateKeyFileAsync()
         {
-            string privateKey = await ReadFileAsync(_configuration["Rsa:private"]);
+            string privateKey = await ReadFileAsync(_configuration["Rsa:Private"]);
 
             RSA rsaKey = RSA.Create();
             rsaKey.ImportRSAPrivateKey(Convert.FromBase64String(privateKey), out int _);
