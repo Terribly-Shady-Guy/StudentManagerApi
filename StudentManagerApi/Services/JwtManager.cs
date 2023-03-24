@@ -38,13 +38,13 @@ namespace StudentManagerApi.Services
 
         public async Task<List<Claim>> ExtractClaimsAsync(string expiredToken)
         {
-            RsaSecurityKey rsaPrivateKey = await _reader.ReadRsaPublicKeyFileAsync();
+            RsaSecurityKey rsaPublicKey = await _reader.ReadRsaPublicKeyFileAsync();
 
             var parameters = new TokenValidationParameters
             {
                 ValidateLifetime = false,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = rsaPrivateKey,
+                IssuerSigningKey = rsaPublicKey,
                 ValidAudience = _configuration["Jwt:Audience"],
                 ValidIssuer = _configuration["Jwt:Issuer"]
             };
