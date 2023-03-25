@@ -13,6 +13,7 @@ namespace StudentManagerApi.Dtos
             Gpa = 0;
             Registration = new List<RegistrationDto>();
         }
+
         public StudentDto(Student student)
         {
             FirstName = student.FirstName;
