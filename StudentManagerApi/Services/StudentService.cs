@@ -13,9 +13,11 @@ namespace StudentManagerApi.Services
             _context = context;
         }
 
-        public async Task<List<Student>> GetAllStudentsAsync()
+        public async Task<List<StudentDto>> GetAllStudentsAsync()
         {
-            return await _context.Students.ToListAsync();
+            return await _context.Students.Include(student => student.Registrations)
+                .Select(student => new StudentDto(student))
+                .ToListAsync();
         }
 
         public async Task<bool> AddNewStudentAsync(StudentDto student)

@@ -6,6 +6,6 @@ namespace StudentManagerApi.Services
     public interface IStudentService
     {
         Task<bool> AddNewStudentAsync(StudentDto student);
-        Task<List<Student>> GetAllStudentsAsync();
+        Task<List<StudentDto>> GetAllStudentsAsync();
     }
 }
