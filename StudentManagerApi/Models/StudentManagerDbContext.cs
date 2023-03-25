@@ -25,16 +25,16 @@ public partial class StudentManagerDbContext : DbContext
     {
         modelBuilder.Entity<Course>(entity =>
         {
-            entity.HasKey(e => e.CourseNumber).HasName("PK__Courses__A98290ECCD7802D2");
+            entity.HasKey(e => e.CourseNumber).HasName("PK__tmp_ms_x__A98290ECBE263371");
 
             entity.Property(e => e.CourseNumber)
-                .HasMaxLength(8)
+                .HasMaxLength(9)
                 .IsUnicode(false)
                 .IsFixedLength();
             entity.Property(e => e.CourseName)
                 .IsRequired()
-                .HasMaxLength(10)
-                .IsFixedLength();
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.EndDate).HasColumnType("date");
             entity.Property(e => e.Instructor)
                 .IsRequired()
@@ -45,7 +45,7 @@ public partial class StudentManagerDbContext : DbContext
 
         modelBuilder.Entity<Registration>(entity =>
         {
-            entity.HasKey(e => e.RegisterId).HasName("PK__Registra__B91FAB7989773EFF");
+            entity.HasKey(e => e.RegisterId).HasName("PK__Registra__B91FAB7941B2E08F");
 
             entity.ToTable("Registration");
 
@@ -59,7 +59,7 @@ public partial class StudentManagerDbContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.CourseNumber)
                 .IsRequired()
-                .HasMaxLength(8)
+                .HasMaxLength(9)
                 .IsUnicode(false)
                 .IsFixedLength();
 
