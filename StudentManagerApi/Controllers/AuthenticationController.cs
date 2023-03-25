@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 
 namespace StudentManagerApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[Action]")]
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
@@ -44,8 +44,8 @@ namespace StudentManagerApi.Controllers
             return Ok(accessToken);
         }
 
-        [HttpGet]
-        public async Task<ActionResult<string>> RefreshTokens(string accessToken)
+        [HttpPost]
+        public async Task<ActionResult<string>> RefreshTokens([FromBody]string accessToken)
         {
             string? refreshToken = Request.Cookies["refresh-token"];
 
@@ -67,7 +67,7 @@ namespace StudentManagerApi.Controllers
         }
 
         [Authorize]
-        [HttpDelete]
+        [HttpPost]
         public IActionResult Logout()
         {
             Response.Cookies.Delete("refresh-token");
