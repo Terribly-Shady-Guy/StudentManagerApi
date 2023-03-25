@@ -76,7 +76,7 @@ namespace StudentManagerApi.Controllers
 
         private void SetRefreshToken()
         {
-            var refreshToken = GenerateRefreshToken();
+            string refreshToken = GenerateRefreshToken();
 
             var options = new CookieOptions
             {
@@ -88,7 +88,7 @@ namespace StudentManagerApi.Controllers
             Response.Cookies.Append("refresh-token", refreshToken, options);
         }
 
-        private string GenerateRefreshToken()
+        private static string GenerateRefreshToken()
         {
             return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
         }
