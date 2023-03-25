@@ -53,9 +53,8 @@ namespace StudentManagerApi.Services
             try
             {
                 ClaimsPrincipal principal = handler.ValidateToken(expiredToken, parameters, out SecurityToken token);
-                var jwtToken = token as JwtSecurityToken;
 
-                if (jwtToken == null || !jwtToken.Header.Alg.Equals(SecurityAlgorithms.RsaSha256, StringComparison.InvariantCultureIgnoreCase))
+                if (token is not JwtSecurityToken jwtToken || !jwtToken.Header.Alg.Equals(SecurityAlgorithms.RsaSha256, StringComparison.InvariantCultureIgnoreCase))
                 {
                     return new List<Claim>();
                 }
