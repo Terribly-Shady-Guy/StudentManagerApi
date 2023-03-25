@@ -83,6 +83,8 @@ namespace StudentManagerApi.Controllers
                 HttpOnly = true,
                 Expires = DateTime.UtcNow.AddDays(2),
                 Secure = true,
+                IsEssential = true,
+                SameSite = SameSiteMode.Strict
             };
 
             Response.Cookies.Append("refresh-token", refreshToken, options);
