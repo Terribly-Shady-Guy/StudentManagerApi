@@ -12,8 +12,12 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy =>
     {
         policy.WithOrigins("http://localhost:5173");
-        policy.WithHeaders("content-type");
         policy.AllowCredentials();
+        policy.WithHeaders(new string[] 
+        { 
+            "content-type",
+            "Authorization"
+        });
         policy.WithMethods(new string[]
         {
             "GET",

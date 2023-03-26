@@ -82,7 +82,7 @@ namespace StudentManagerApi.Controllers
             {
                 HttpOnly = true,
                 Expires = DateTime.UtcNow.AddDays(2),
-                Secure = true,
+                //Secure = true,
                 IsEssential = true,
                 SameSite = SameSiteMode.Strict
             };
