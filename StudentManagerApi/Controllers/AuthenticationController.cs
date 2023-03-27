@@ -22,7 +22,7 @@ namespace StudentManagerApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<string>> Login(LoginDto login)
+        public async Task<ActionResult<LoggedInDto>> Login(LoginDto login)
         {
             User? user = await _userService.GetUserAsync(login);
 
@@ -39,9 +39,15 @@ namespace StudentManagerApi.Controllers
 
             string accessToken = await _jwtManager.CreateJwtAsync(claims);
 
+            var loggedInDto = new LoggedInDto
+            {
+                AccessToken = accessToken,
+                IsAdmin = user.Role == "Admin"
+            };
+
             SetRefreshToken();
 
-            return Ok(accessToken);
+            return Ok(loggedInDto);
         }
 
         [HttpPost]
