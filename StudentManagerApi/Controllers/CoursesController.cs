@@ -34,6 +34,12 @@ namespace StudentManagerApi.Controllers
         }
 
         [HttpGet]
+        public async Task<ActionResult<List<string>>> GetCourseNumbers()
+        {
+            return Ok(await _courseService.GetAllCourseNumbersAsync());
+        }
+
+        [HttpGet("{id}")]
         public async Task<ActionResult<CourseDto>> GetSelectedCourse(string courseNumber)
         {
             Course? course = await _courseService.GetCourseByCourseNumberAsync(courseNumber);

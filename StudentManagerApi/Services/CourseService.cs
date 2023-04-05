@@ -30,5 +30,10 @@ namespace StudentManagerApi.Services
                 return false;
             }
         }
+
+        public async Task<List<string>> GetAllCourseNumbersAsync()
+        {
+            return await _context.Courses.Select(c => c.CourseNumber).ToListAsync();
+        }
     }
 }

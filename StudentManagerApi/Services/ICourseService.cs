@@ -6,5 +6,6 @@ namespace StudentManagerApi.Services
     {
         Task<bool> AddNewCourseAsync(Course course);
         Task<Course?> GetCourseByCourseNumberAsync(string courseNumber);
+        Task<List<string>> GetAllCourseNumbersAsync();
     }
 }
