@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentManagerApi.Dtos;
-using StudentManagerApi.Models;
 using StudentManagerApi.Services;
 
 namespace StudentManagerApi.Controllers
