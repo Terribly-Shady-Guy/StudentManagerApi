@@ -14,7 +14,7 @@ namespace StudentManagerApi.Services
 
         public async Task<Course?> GetCourseByCourseNumberAsync(string courseNumber)
         {
-            return await _context.Courses.Where(c => c.CourseNumber == courseNumber).FirstOrDefaultAsync();
+            return await _context.Courses.FindAsync(courseNumber);
         }
 
         public async Task<bool> AddNewCourseAsync(Course course)
