@@ -61,7 +61,7 @@ namespace StudentManagerApi.Services
 
                 return principal.Claims.ToList();
             }
-            catch (Exception)
+            catch (SecurityTokenException)
             {
                 return new List<Claim>();
             }
