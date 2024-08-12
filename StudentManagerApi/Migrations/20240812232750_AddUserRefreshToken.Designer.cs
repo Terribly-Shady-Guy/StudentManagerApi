@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentManagerApi.Models;
 
@@ -11,9 +12,11 @@ using StudentManagerApi.Models;
 namespace StudentManagerApi.Migrations
 {
     [DbContext(typeof(StudentManagerDbContext))]
-    partial class StudentManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240812232750_AddUserRefreshToken")]
+    partial class AddUserRefreshToken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
