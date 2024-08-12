@@ -4,7 +4,6 @@ using StudentManagerApi.Dtos;
 using StudentManagerApi.Models;
 using StudentManagerApi.Services;
 using System.Security.Claims;
-using System.Security.Cryptography;
 
 namespace StudentManagerApi.Controllers
 {
@@ -33,8 +32,8 @@ namespace StudentManagerApi.Controllers
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, user.Role),
+                new(ClaimTypes.Name, user.Username),
+                new(ClaimTypes.Role, user.Role),
             };
 
             string accessToken = await _jwtManager.CreateJwtAsync(claims);
@@ -82,23 +81,18 @@ namespace StudentManagerApi.Controllers
 
         private void SetRefreshToken()
         {
-            string refreshToken = GenerateRefreshToken();
+            string refreshToken = JwtManager.GenerateRefreshToken();
 
             var options = new CookieOptions
             {
                 HttpOnly = true,
                 Expires = DateTime.UtcNow.AddDays(2),
-                //Secure = true,
+                Secure = true,
                 IsEssential = true,
                 SameSite = SameSiteMode.Strict
             };
 
             Response.Cookies.Append("refresh-token", refreshToken, options);
-        }
-
-        private static string GenerateRefreshToken()
-        {
-            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
         }
     }
 }
