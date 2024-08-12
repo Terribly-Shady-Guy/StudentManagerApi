@@ -10,12 +10,12 @@ public class RsaKeyConfig
     public string? Private { get; set; }
 
 }
-public class RsaKeyHandler
+public class RsaKeyFileHandler : IRsaKeyHandler
 {
     private readonly IOptions<RsaKeyConfig> _config;
     private static readonly string _rsaDirectoryPath = Path.Combine(Environment.CurrentDirectory, "..", "rsa");
 
-    public RsaKeyHandler(IOptions<RsaKeyConfig> config)
+    public RsaKeyFileHandler(IOptions<RsaKeyConfig> config)
     {
         _config = config;
     }

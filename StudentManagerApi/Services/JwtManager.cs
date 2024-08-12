@@ -15,10 +15,10 @@ namespace StudentManagerApi.Services
 
     public class JwtManager : IJwtManager
     {
-        private readonly RsaKeyHandler _keyHandler;
+        private readonly RsaKeyFileHandler _keyHandler;
         private readonly IOptions<JwtConfig> _config;
 
-        public JwtManager(RsaKeyHandler keyHandler, IOptions<JwtConfig> config)
+        public JwtManager(RsaKeyFileHandler keyHandler, IOptions<JwtConfig> config)
         {
             _keyHandler = keyHandler;
             _config = config;

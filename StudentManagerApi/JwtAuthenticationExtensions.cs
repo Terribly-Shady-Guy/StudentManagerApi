@@ -9,7 +9,7 @@ namespace StudentManagerApi
     {
         public static void AddRsaJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<RsaKeyHandler>();
+            services.AddScoped<RsaKeyFileHandler>();
             services.Configure<RsaKeyConfig>(configuration.GetSection("Rsa"));
 
             services.AddTransient<IJwtManager, JwtManager>();
@@ -23,7 +23,7 @@ namespace StudentManagerApi
             {
                 var config = Options.Create<RsaKeyConfig>(configuration?.GetSection("Rsa")?.Get<RsaKeyConfig>());
 
-                var handler = new RsaKeyHandler(config);
+                var handler = new RsaKeyFileHandler(config);
                 handler.CreateKey().GetAwaiter().GetResult();
 
                 RsaSecurityKey? rsaPublicKey = handler.GetPublicKey().GetAwaiter().GetResult();
