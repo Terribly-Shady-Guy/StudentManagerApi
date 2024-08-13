@@ -60,5 +60,40 @@ namespace StudentManagerApi.Services
 
             return rowsChanged > 0;
         }
+
+        public async Task<string?> GetRefreshToken(string name)
+        {
+            return await _context.Users.Where(u => u.Username == name)
+                .Select(u => u.RefreshToken)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> SetRefreshToken(string? refreshToken, string userName)
+        {
+            User? user = await _context.Users.Where(u => u.Username == userName).FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return false;
+            }
+            
+            return await SetRefreshToken(refreshToken, user);
+        }
+
+        public async Task<bool> SetRefreshToken(string? refreshToken, User user)
+        {
+            user.RefreshToken = refreshToken;
+            
+            try
+            {
+                _context.Update<User>(user);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (DbUpdateException)
+            {
+                return false;
+            }
+        }
     }
 }
