@@ -3,7 +3,6 @@ using Microsoft.IdentityModel.JsonWebTokens;
 using System.Security.Claims;
 using Microsoft.Extensions.Options;
 using System.Security.Cryptography;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace StudentManagerApi.Services
 {
