@@ -35,7 +35,7 @@ namespace StudentManagerApi.Services
 
             SigningCredentials credentials = new(rsaPrivateKey, SecurityAlgorithms.RsaSha256);
 
-            var decriptor = new SecurityTokenDescriptor()
+            var descriptor = new SecurityTokenDescriptor()
             {
                 SigningCredentials = credentials,
                 Audience = _config.Value.Audience,
@@ -44,7 +44,7 @@ namespace StudentManagerApi.Services
                 Subject = new ClaimsIdentity(claims)
             };
 
-            return new JsonWebTokenHandler().CreateToken(decriptor);
+            return new JsonWebTokenHandler().CreateToken(descriptor);
         }
 
         public async Task<List<Claim>> ExtractClaimsAsync(string expiredToken)
